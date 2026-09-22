@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استمارة تقييم الحالة اللياقية والغذائية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            background-color: #eff6ff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-right: 4px solid var(--primary-color);
+        }
+
+        .question-group {
+            margin-bottom: 20px;
+        }
+
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-field label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .input-field input[type="text"],
+        .input-field input[type="number"],
+        .input-field textarea {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-field input:focus,
+        .input-field textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .option-item:hover {
+            background-color: #f1f5f9;
+        }
+
+        .option-item input {
+            margin-left: 10px;
+            accent-color: var(--primary-color);
+            width: 18px;
+            height: 18px;
+        }
+
+        .options-inline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .options-inline .option-item {
+            flex: 1;
+            min-width: 140px;
+        }
+
+        button.btn-submit {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button.btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            .options-inline .option-item {
+                flex: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>استمارة تقييم الحالة (Body & Assessment)</h1>
+        <p>يرجى إدخال بياناتك واختيار الخيارات المناسبة لمساعدتنا في إعداد برنامجك المخصص</p>
+    </header>
+
+    <form action="#" method="POST">
+
+        <!-- القسم الأول -->
+        <div class="section">
+            <h2 class="section-title">أولاً: معلومات عن جسمك وهدفك (Body & Goals)</h2>
+            
+            <div class="question-group">
+                <span class="question-title">1. البيانات الأساسية:</span>
+                <div class="input-grid">
+                    <div class="input-field">
+                        <label for="age">السن (سنة)</label>
+                        <input type="number" id="age" name="age" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="height">الطول (سم)</label>
+                        <input type="number" id="height" name="height" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="weight">الوزن الحالي (كجم)</label>
+                        <input type="number" id="weight" name="weight" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <span class="question-title">نسبة الدهون التقريبية (أو الشكل الشبيه بجسمك):</span>
+                <div class="options-list">
+                    <label class="option-item">
+                        <input type="radio" name="body_fat" value="under_12"> نحيف جداً / عظام بارزة (أقل من 12%)
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="body_fat" value="13_18"> متوسط / لياقة عامة بدون عضلات بارزة (13% - 18%)
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="body_fat" value="19_24"> زيادة وزنية خفيفة / دهون حول البطن (19% - 24%)
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="body_fat" value="25_30"> سمنة متوسطة / وزن زائد ملحوظ (25% - 30%)
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="body_fat" value="above_30"> سمنة عالية / وزن زائد كبير (أكثر من 30%)
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <span class="question-title">2. الهدف الرئيسي:</span>
+                <div class="options-list">
+                    <label class="option-item">
+                        <input type="radio" name="goal" value="bulking"> تضخيم وبناء عضلات (Bulking): زيادة الكتلة العضلية مع تقليل اكتساب الدهون.
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="goal" value="cutting"> تخسيس وخسارة دهون (Cutting): خسارة الدهون مع الحفاظ على العضلات.
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="goal" value="recomposition"> إعادة تشكيل الجسم (Recomposition): بناء عضلات وخسارة دهون بنفس الوقت.
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="goal" value="fitness"> تحسين اللياقة العامة والصحة.
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <span class="question-title">3. معدل النشاط اليومي (بعيداً عن التمرين):</span>
+                <div class="options-list">
+                    <label class="option-item">
+                        <input type="radio" name="activity_level" value="sedentary"> خامل / مكتبي: الجلوس معظم اليوم (مثل: موظف، طالب).
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="activity_level" value="moderate"> متوسط النشاط: حركة خفيفة خلال اليوم (مثل: معلم، بيع تجزئة).
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="activity_level" value="high"> نشيط جداً: شغل ميداني وحركي مجهد (مثل: مهندس موقع، عمالة بدنية).
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- القسم الثاني -->
+        <div class="section">
+            <h2 class="section-title">ثانياً: التغذية والعادات الغذائية (Nutrition & Diet)</h2>
+
+            <div class="question-group">
+                <span class="question-title">1. التاريخ الغذائي والحساسيات:</span>
+                <div class="options-list">
+                    <label class="option-item"><input type="checkbox" name="allergies[]" value="none"> لا توجد حساسيات</label>
+                    <label class="option-item"><input type="checkbox" name="allergies[]" value="lactose"> حساسية ألبان (لاكتوز)</label>
+                    <label class="option-item"><input type="checkbox" name="allergies[]" value="gluten"> حساسية جلوتين (قمح)</label>
+                    <label class="option-item"><input type="checkbox" name="allergies[]" value="nuts_fish"> حساسية مكسرات / أسماك</label>
+                </div>
+                <div class="input-field" style="margin-top: 10px;">
+                    <label for="disliked_food">أطعمة لا تحبها أو أطعمة أساسية تفضل وجودها:</label>
+                    <input type="text" id="disliked_food" name="disliked_food" placeholder="مثال: لا أحب السمك، أساسي وجود البيض">
+                </div>
+            </div>
+
+            <div class="question-group">
+                <span class="question-title">2. عدد الوجبات المناسب لجدولك:</span>
+                <div class="options-list">
+                    <label class="option-item"><input type="radio" name="meals_count" value="2"> وجبتين فقط (مناسب للصيام المتقطع)</label>
+                    <label class="option-item"><input type="radio" name="meals_count" value="3"> 3 وجبات رئيسية (بدون سناك)</label>
+                    <label class="option-item"><input type="radio" name="meals_count" value="3_snacks"> 3 وجبات رئيسية + 1 أو 2 سناك</label>
+                    <label class="option-item"><input type="radio" name="meals_count" value="4_5"> 4 إلى 5 وجبات صغيرة</label>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <span class="question-title">3. المكملات الغذائية:</span>
+                <div class="options-list">
+                    <label class="option-item"><input type="radio" name="supplements_status" value="none"> لا أستخدم ولا أنوي شراء مكملات حالياً</label>
+                    <label class="option-item"><input type="radio" name="supplements_status" value="open"> ميزانيتي تسمح بشراء مكملات إذا كانت ضرورية</label>
+                </div>
+                <div style="margin-top: 10px;">
+                    <span class="question-title" style="font-size: 0.9rem;">المكملات المستخدمة حالياً (إن وجدت):</span>
+                    <div class="options-inline">
+                        <label class="option-item"><input type="checkbox" name="current_supps[]" value="whey"> واي بروتين</label>
+                        <label class="option-item"><input type="checkbox" name="current_supps[]" value="creatine"> كرياتين</label>
+                        <label class="option-item"><input type="checkbox" name="current_supps[]" value="omega3"> أوميجا 3</label>
+                        <label class="option-item"><input type="checkbox" name="current_supps[]" value="multivitamin"> مالتي فيتامين</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <span class="question-title">4. أسلوب النظام الغذائي المفضل:</span>
+                <div class="options-list">
+                    <label class="option-item"><input type="radio" name="diet_style" value="strict"> نظام صريح ومحدد (جدول بالجرامات والكميات)</label>
+                    <label class="option-item"><input type="radio" name="diet_style" value="iifym"> نظام مرن IIFYM (حساب السعرات والماكروز واختيار الأكل)</label>
+                    <label class="option-item"><input type="radio" name="diet_style" value="hybrid"> خليط بين الاثنين (جدول ثوابت مع بدائل مرنة)</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- القسم الثالث -->
+        <div class="section">
+            <h2 class="section-title">ثالثاً: نظام التمرين والخبرة (Training & Experience)</h2>
+
+            <div class="question-group">
+                <span class="question-title">1. مستوى الخبرة في التمرين:</span>
+                <div class="options-list">
+                    <label class="option-item"><input type="radio" name="experience" value="beginner"> مبتدئ: لم أتتمرن من قبل أو بشكل غير منتظم</label>
+                    <label class="option-item"><input type="radio" name="experience" value="intermediate"> متوسط: أتتمرن باستمرار منذ (6 أشهر إلى سنتين)</label>
+                    <label class="option-item"><input type="radio" name="experience" value="advanced"> متقدم: أتتمرن باستمرار منذ أكثر من سنتين</label>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <span class="question-title">2. مكان التمرين والأدوات المتاحة:</span>
+                <div class="options-list">
+                    <label class="option-item"><input type="radio" name="gym_type" value="full_gym"> جيم (Gym) مجهز بالكامل</label>
+                    <label class="option-item"><input type="radio" name="gym_type" value="home"> تمرين من البيت</label>
+                </div>
+                <div style="margin-top: 10px;">
+                    <span class="question-title" style="font-size: 0.9rem;">الأدوات المتاحة بالبيت (إن وجدت):</span>
+                    <div class="options-inline">
+                        <label class="option-item"><input type="checkbox" name="home_tools[]" value="dumbbells"> دمبلز</label>
+                        <label class="option-item"><input type="checkbox" name="home_tools[]" value="bands"> أشرطة مقاومة</label>
+                        <label class="option-item"><input type="checkbox" name="home_tools[]" value="pullup_bar"> عقلة</label>
+                        <label class="option-item"><input type="checkbox" name="home_tools[]" value="bodyweight"> وزن الجسم فقط</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <span class="question-title">3. الوقت والمواعيد المتاحة:</span>
+                <div class="input-grid">
+                    <div class="input-field">
+                        <label>عدد الأيام المتاحة أسبوعياً:</label>
+                        <div class="options-inline">
+                            <label class="option-item"><input type="radio" name="days" value="3"> 3 أيام</label>
+                            <label class="option-item"><input type="radio" name="days" value="4"> 4 أيام</label>
+                            <label class="option-item"><input type="radio" name="days" value="5"> 5 أيام</label>
+                            <label class="option-item"><input type="radio" name="days" value="6"> 6 أيام</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-field" style="margin-top: 10px;">
+                    <label>الوقت المتاح للجلسة التدريبية الواحدة:</label>
+                    <div class="options-inline">
+                        <label class="option-item"><input type="radio" name="session_time" value="45"> أقل من 45 دقيقة</label>
+                        <label class="option-item"><input type="radio" name="session_time" value="60"> من 45 إلى 60 دقيقة</label>
+                        <label class="option-item"><input type="radio" name="session_time" value="90"> من 60 إلى 90 دقيقة</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <span class="question-title">4. تقسيم نظام التمرين المفضل (Split):</span>
+                <div class="options-list">
+                    <label class="option-item"><input type="radio" name="workout_split" value="full_body"> Full Body (تمرين الجسم كامل - ممتاز لـ 3 أيام)</label>
+                    <label class="option-item"><input type="radio" name="workout_split" value="upper_lower"> Upper / Lower (جزء علوي / سفلي - ممتاز لـ 4 أيام)</label>
+                    <label class="option-item"><input type="radio" name="workout_split" value="ppl"> Push / Pull / Legs (دفع / سحب / أرجل)</label>
+                    <label class="option-item"><input type="radio" name="workout_split" value="coach_choice"> تحديد التقسيم الأنسب بناءً على خبرتك وجدولي</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- القسم الرابع -->
+        <div class="section">
+            <h2 class="section-title">رابعاً: الحالة الصحية ونمط الحياة (Health & Lifestyle)</h2>
+
+            <div class="question-group">
+                <span class="question-title">1. الإصابات والمشاكل الصحية:</span>
+                <div class="options-list">
+                    <label class="option-item"><input type="checkbox" name="injuries[]" value="none"> لا توجد إصابات</label>
+                    <label class="option-item"><input type="checkbox" name="injuries[]" value="knee"> خشونة أو آلام بالركبة</label>
+                    <label class="option-item"><input type="checkbox" name="injuries[]" value="back"> مشاكل أسفل الظهر / الانزلاق الغضروفي</label>
+                    <label class="option-item"><input type="checkbox" name="injuries[]" value="shoulder"> آلام بالأكتاف / المعصم</label>
+                </div>
+                <div class="input-field" style="margin-top: 10px;">
+                    <label for="chronic_diseases">أمراض مزمنة أو مشاكل صحية أخرى (ضغط، سكر، غدة):</label>
+                    <input type="text" id="chronic_diseases" name="chronic_diseases" placeholder="اكتبها هنا إن وجدت، أو اتركها فارغة">
+                </div>
+            </div>
+
+            <div class="question-group">
+                <span class="question-title">2. النوم والاستشفاء:</span>
+                <div class="input-field" style="margin-bottom: 10px;">
+                    <label>معدل ساعات النوم اليومي:</label>
+                    <div class="options-inline">
+                        <label class="option-item"><input type="radio" name="sleep_hours" value="less_6"> أقل من 6 ساعات</label>
+                        <label class="option-item"><input type="radio" name="sleep_hours" value="6_8"> من 6 إلى 8 ساعات</label>
+                        <label class="option-item"><input type="radio" name="sleep_hours" value="more_8"> أكثر من 8 ساعات</label>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <label>جودة النوم:</label>
+                    <div class="options-inline">
+                        <label class="option-item"><input type="radio" name="sleep_quality" value="deep"> نوم عميق ومستقر</label>
+                        <label class="option-item"><input type="radio" name="sleep_quality" value="insomnia"> نوم متقطع / أرق</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <span class="question-title">3. مستوى التوتر والضغط العصبي (Stress):</span>
+                <div class="options-list">
+                    <label class="option-item"><input type="radio" name="stress_level" value="low"> منخفض: حياة هادئة وروتين منتظم</label>
+                    <label class="option-item"><input type="radio" name="stress_level" value="medium"> متوسط: ضغط عمل/دراسة طبيعي ومقدور عليه</label>
+                    <label class="option-item"><input type="radio" name="stress_level" value="high"> مرتفع جداً: توتر دائم وضغوطات شديدة</label>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit">إرسال البيانات</button>
+    </form>
+</div>
+
+</body>
+</html>
