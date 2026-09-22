@@ -254,7 +254,7 @@
   }
   .gate-verified svg { width: 15px; height: 15px; }
 
-  /* ========== QUIZ CTA + MODAL ========== */
+  /* ========== QUIZ CTA ========== */
   .quiz-banner {
     display: flex;
     flex-wrap: wrap;
@@ -280,46 +280,51 @@
   .quiz-banner .btn { position: relative; z-index: 1; white-space: nowrap; }
   .quiz-banner .btn .ppl-lock { margin-inline-start: 6px; font-size: 1rem; }
 
-  .quizbox {
-    position: fixed; inset: 0; z-index: 95;
-    display: grid; place-items: center; padding: 20px;
-    background: rgba(0,0,0,.75);
-    backdrop-filter: blur(6px);
-    overflow-y: auto;
+  /* ========== QUESTIONNAIRE PAGE ========== */
+  body.quiz-mode > .hero,
+  body.quiz-mode > main,
+  body.quiz-mode > footer,
+  body.quiz-mode > .float-wa { display: none; }
+  body.quiz-mode .navbar { display: none; }
+
+  #quiz-page[hidden] { display: none !important; }
+  #quiz-page { min-height: 100svh; background: var(--ink); }
+  #quiz-page .qp-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(14,14,14,.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
   }
-  .quizbox[hidden] { display: none; }
-  .quizbox-card {
-    position: relative;
-    width: 100%; max-width: 480px;
-    max-height: 88vh;
-    overflow-y: auto;
-    padding: 0;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 24px;
+  #quiz-page .qp-bar-in { display: flex; align-items: center; gap: 12px; padding: 14px 0; }
+  .qp-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--display); font-weight: 800; font-size: .95rem;
+    color: var(--text); background: transparent; border: 1.5px solid var(--line);
+    border-radius: 999px; padding: 9px 18px; cursor: pointer;
+  }
+  .qp-back:hover { border-color: var(--ember); color: var(--ember); }
+  .qp-title { font-family: var(--display); font-weight: 900; font-size: 1.05rem; margin-inline-start: auto; }
+
+  .qp-hero {
+    padding: 54px 20px 44px;
     text-align: center;
-    box-shadow: 0 30px 80px rgba(0,0,0,.6);
-    animation: cardIn .4s cubic-bezier(.2,.7,.2,1) both;
-  }
-  .quiz-head {
-    position: relative;
-    padding: 30px 26px 22px;
     background: linear-gradient(160deg, var(--orange), #c93a00);
   }
-  .quiz-head .codebox-x { color: rgba(255,255,255,.85); }
-  .quiz-head .codebox-x:hover { color: #fff; }
-  .quiz-head .q-ico {
-    width: 56px; height: 56px;
-    border-radius: 16px;
+  .qp-hero .q-ico {
+    width: 64px; height: 64px; border-radius: 18px;
     background: rgba(255,255,255,.18);
-    display: grid; place-items: center;
-    margin: 0 auto 14px;
-    color: #fff;
+    display: grid; place-items: center; margin: 0 auto 16px; color: #fff;
   }
-  .quiz-head .q-ico svg { width: 28px; height: 28px; }
-  .quiz-head h3 { color: #fff; font-family: var(--display); font-weight: 900; font-size: 1.3rem; margin: 0 0 6px; }
-  .quiz-head p { color: rgba(255,255,255,.88); margin: 0; font-size: .92rem; }
-  .quiz-body { padding: 26px 26px 30px; }
+  .qp-hero .q-ico svg { width: 32px; height: 32px; }
+  .qp-hero h1 { color: #fff; font-family: var(--display); font-weight: 900; font-size: clamp(1.7rem, 5vw, 2.4rem); margin: 0 0 10px; }
+  .qp-hero p { color: rgba(255,255,255,.9); max-width: 52ch; margin: 0 auto; }
+
+  .qp-form-wrap { max-width: 640px; margin: -30px auto 0; padding: 0 20px 90px; position: relative; z-index: 2; }
+  .qp-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 24px;
+    padding: 32px 28px; box-shadow: 0 30px 80px rgba(0,0,0,.5);
+  }
+  .qp-card .btn { width: 100%; margin-top: 6px; }
+
   .quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
   @media (max-width: 420px) { .quiz-grid { grid-template-columns: 1fr; } }
   .qfield { text-align: right; margin-bottom: 14px; }
@@ -332,7 +337,6 @@
   .qfield input:focus, .qfield select:focus, .qfield textarea:focus {
     outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,77,0,.25);
   }
-  .quiz-body .btn { width: 100%; margin-top: 6px; }
 
   /* ========== WHY CHOOSE ========== */
   .why {
@@ -1306,18 +1310,28 @@
   </div>
 </div>
 
-<!-- ========== QUESTIONNAIRE MODAL ========== -->
-<div class="quizbox" id="quizbox" hidden role="dialog" aria-modal="true" aria-labelledby="quiz-title">
-  <div class="quizbox-card">
-    <div class="quiz-head">
-      <button type="button" class="codebox-x" id="quiz-x" aria-label="إغلاق">×</button>
-      <div class="q-ico" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6a1 1 0 0 1 1 1v1h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h1V4a1 1 0 0 1 1-1z"/><path d="M9 12h6M9 16h4"/></svg>
-      </div>
-      <h3 id="quiz-title">استبيان النظام الغذائي والتدريبي</h3>
-      <p>جاوب بدقة، والإجابات هتتبعت لي على واتساب علطول عشان أظبطلك خطتك.</p>
+<!-- ========== QUESTIONNAIRE PAGE ========== -->
+<div id="quiz-page" hidden>
+  <header class="qp-bar">
+    <div class="wrap qp-bar-in">
+      <button type="button" class="qp-back" id="quiz-back">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        رجوع للموقع
+      </button>
+      <span class="qp-title">استبيان النظام الغذائي</span>
     </div>
-    <div class="quiz-body">
+  </header>
+
+  <div class="qp-hero">
+    <div class="q-ico" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6a1 1 0 0 1 1 1v1h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h1V4a1 1 0 0 1 1-1z"/><path d="M9 12h6M9 16h4"/></svg>
+    </div>
+    <h1>استبيان النظام الغذائي والتدريبي</h1>
+    <p>جاوب بدقة، والإجابات هتتبعت لي على واتساب علطول عشان أظبطلك خطتك.</p>
+  </div>
+
+  <div class="qp-form-wrap">
+    <div class="qp-card">
       <form id="quiz-form" novalidate>
         <div class="quiz-grid">
           <div class="qfield">
@@ -1372,7 +1386,7 @@
         </div>
         <button class="btn btn-primary" type="submit" id="quiz-submit">إرسال الإجابات على واتساب</button>
       </form>
-      <div class="gate-msg" id="quiz-msg" role="alert"></div>
+      <div class="gate-msg" id="quiz-msg" role="alert" style="margin-top:12px"></div>
     </div>
   </div>
 </div>
@@ -1478,7 +1492,7 @@
     var msg = document.getElementById('code-msg');
     var btn = document.getElementById('code-btn');
     var pending = null;
-    var quizBox = document.getElementById('quizbox');
+    var quizPage = document.getElementById('quiz-page');
 
     function normalize(v) { return String(v || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); }
     function setLocks(open) {
@@ -1494,12 +1508,19 @@
     function closeBox() { box.hidden = true; pending = null; }
 
     function openQuiz() {
-      if (!quizBox) return;
-      quizBox.hidden = false;
+      if (!quizPage) return;
+      document.body.classList.remove('locked');
+      document.body.classList.add('quiz-mode');
+      quizPage.hidden = false;
+      window.scrollTo(0, 0);
       var first = document.getElementById('q-age');
       if (first) first.focus();
     }
-    function closeQuiz() { if (quizBox) quizBox.hidden = true; }
+    function closeQuiz() {
+      document.body.classList.remove('quiz-mode');
+      if (quizPage) quizPage.hidden = true;
+      window.scrollTo(0, 0);
+    }
 
     // بنفتح تاب فاضي فوراً (عشان المتصفح ما يمنعوش) ونحط فيه الرابط بعد التحقق
     function blankTab() {
@@ -1576,15 +1597,13 @@
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'Escape') return;
       if (!box.hidden) closeBox();
-      if (quizBox && !quizBox.hidden) closeQuiz();
     });
 
     // ===== إرسال إجابات الاستبيان على واتساب =====
     var quizForm = document.getElementById('quiz-form');
     var quizMsg = document.getElementById('quiz-msg');
-    var quizX = document.getElementById('quiz-x');
-    if (quizX) quizX.addEventListener('click', closeQuiz);
-    if (quizBox) quizBox.addEventListener('click', function (e) { if (e.target === quizBox) closeQuiz(); });
+    var quizBack = document.getElementById('quiz-back');
+    if (quizBack) quizBack.addEventListener('click', closeQuiz);
 
     if (quizForm) {
       quizForm.addEventListener('submit', function (e) {
