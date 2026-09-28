@@ -325,11 +325,6 @@
   }
   .qp-card .btn { width: 100%; margin-top: 6px; }
 
-  .quiz-thanks { text-align: center; padding: 30px 0; }
-  .quiz-thanks .tick { font-size: 3rem; }
-  .quiz-thanks h3 { font-family: var(--display); font-weight: 900; margin: 6px 0 8px; }
-  .quiz-thanks p { color: var(--muted); margin: 0; }
-
   .quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
   @media (max-width: 420px) { .quiz-grid { grid-template-columns: 1fr; } }
   .qfield { text-align: right; margin-bottom: 14px; }
@@ -1100,7 +1095,7 @@
       <div class="quiz-banner">
         <div class="quiz-banner-text">
           <h3>🎯 عايز نظام غذائي وتدريبي مخصص ليك؟</h3>
-          <p>املأ الاستبيان بمعلوماتك، والإجابات هتوصلني على واتساب عشان أظبطلك خطتك بالظبط.</p>
+          <p>املأ الاستبيان بمعلوماتك، والإجابات هتوصلني منظمة على واتساب عشان أظبطلك خطتك بالظبط.</p>
         </div>
         <button type="button" class="btn btn-primary" data-prog="quiz">
           املأ الاستبيان
@@ -1229,7 +1224,7 @@
           <a class="btn btn-primary" href="https://wa.me/201555557031?text=أريد%20الاشتراك%20في%20باقة%20الـ%20VIP%20">اشترك الآن</a>
         </article>
 
-
+        
         <article class="plan">
           <h3>باقة الـ 6 شهور</h3>
           <div class="price">2000 <span>جنيه</span></div>
@@ -1350,20 +1345,12 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6a1 1 0 0 1 1 1v1h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h1V4a1 1 0 0 1 1-1z"/><path d="M9 12h6M9 16h4"/></svg>
     </div>
     <h1>استبيان النظام الغذائي والتدريبي</h1>
-    <p>جاوب بدقة، وإجاباتك هتوصلني علطول عشان أظبطلك خطتك.</p>
+    <p>جاوب بدقة، والإجابات هتتبعت لي على واتساب علطول عشان أظبطلك خطتك.</p>
   </div>
 
   <div class="qp-form-wrap">
     <div class="qp-card">
       <form id="quiz-form" novalidate>
-        <div class="qfield">
-          <label for="q-sex">النوع</label>
-          <select id="q-sex">
-            <option value="">اختار...</option>
-            <option value="m">ذكر</option>
-            <option value="f">أنثى</option>
-          </select>
-        </div>
         <div class="quiz-grid">
           <div class="qfield">
             <label for="q-age">السن</label>
@@ -1415,13 +1402,8 @@
           <label for="q-notes">ملاحظات إضافية</label>
           <textarea id="q-notes" rows="3" placeholder="أي تفاصيل تانية حابب تقولها"></textarea>
         </div>
-        <button class="btn btn-primary" type="submit" id="quiz-submit">إرسال الإجابات</button>
+        <button class="btn btn-primary" type="submit" id="quiz-submit">إرسال الإجابات على واتساب</button>
       </form>
-      <div class="quiz-thanks" id="quiz-thanks" hidden>
-        <div class="tick">✅</div>
-        <h3>وصلتني إجاباتك</h3>
-        <p>هراجعها وأظبطلك خطتك وأتواصل معاك على الواتساب قريب.</p>
-      </div>
       <div class="gate-msg" id="quiz-msg" role="alert" style="margin-top:12px"></div>
     </div>
   </div>
@@ -1529,10 +1511,6 @@
     var btn = document.getElementById('code-btn');
     var pending = null;
     var quizPage = document.getElementById('quiz-page');
-    var quizForm = document.getElementById('quiz-form');
-    var quizThanks = document.getElementById('quiz-thanks');
-    var quizMsg = document.getElementById('quiz-msg');
-    var quizBack = document.getElementById('quiz-back');
 
     function normalize(v) { return String(v || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); }
     function setLocks(open) {
@@ -1549,15 +1527,11 @@
 
     function openQuiz() {
       if (!quizPage) return;
-      // نرجّع الاستبيان فاضي في كل مرة يتفتح
-      if (quizForm) { quizForm.reset(); quizForm.hidden = false; }
-      if (quizThanks) quizThanks.hidden = true;
-      if (quizMsg) quizMsg.textContent = '';
       document.body.classList.remove('locked');
       document.body.classList.add('quiz-mode');
       quizPage.hidden = false;
       window.scrollTo(0, 0);
-      var first = document.getElementById('q-sex');
+      var first = document.getElementById('q-age');
       if (first) first.focus();
     }
     function closeQuiz() {
@@ -1643,122 +1617,55 @@
       if (!box.hidden) closeBox();
     });
 
-    // ===== حساب الخطة: BMR (Harris-Benedict) + النشاط + الماكروز + BMI + الماء =====
-    function calcPlan(o) {
-      var w = +o.weight, h = +o.height, a = +o.age;
-
-      // معادلة هاريس بنديكت المعدلة
-      var bmr = o.sex === 'm'
-        ? 88.362 + 13.397 * w + 4.799 * h - 5.677 * a
-        : 447.593 + 9.247 * w + 3.098 * h - 4.330 * a;
-
-      // معامل النشاط
-      var factor = 1.55;
-      if (o.activity.indexOf('قليل') > -1) factor = 1.2;
-      else if (o.activity.indexOf('عالي') > -1) factor = 1.725;
-
-      var tdee = bmr * factor;
-      var cal = tdee, pPerKg = 1.8, goalNote = 'ثبات وزن';
-      if (o.goal.indexOf('نزول') > -1) { cal = tdee * 0.80; pPerKg = 2.2; goalNote = 'عجز 20%'; }
-      else if (o.goal.indexOf('زيادة') > -1) { cal = tdee * 1.10; pPerKg = 2.0; goalNote = 'فائض 10%'; }
-
-      var protein = pPerKg * w;
-      var fat = cal * 0.25 / 9;
-      var carbs = (cal - protein * 4 - fat * 9) / 4;
-
-      // BMI
-      var hm = h / 100;
-      var bmi = w / (hm * hm);
-      var bmiCat = bmi < 18.5 ? 'نحافة'
-                 : bmi < 25   ? 'وزن طبيعي'
-                 : bmi < 30   ? 'وزن زائد'
-                 : 'سمنة';
-
-      // الماء: 35 مل لكل كجم + نص لتر لو بيتمرن
-      var trainDays = +o.days || 0;
-      var water = w * 0.035 + (trainDays > 0 ? 0.5 : 0);
-
-      return {
-        bmr: Math.round(bmr), factor: factor, tdee: Math.round(tdee),
-        cal: Math.round(cal), goalNote: goalNote,
-        protein: Math.round(protein), fat: Math.round(fat), carbs: Math.round(carbs),
-        bmi: bmi.toFixed(1), bmiCat: bmiCat, water: water.toFixed(1)
-      };
-    }
-
-    // ===== إرسال الاستبيان + النتيجة ليك أنت بس (العميل مبيشوفش أي أرقام) =====
+    // ===== إرسال إجابات الاستبيان على واتساب =====
+    var quizForm = document.getElementById('quiz-form');
+    var quizMsg = document.getElementById('quiz-msg');
+    var quizBack = document.getElementById('quiz-back');
     if (quizBack) quizBack.addEventListener('click', closeQuiz);
 
     if (quizForm) {
       quizForm.addEventListener('submit', function (e) {
         e.preventDefault();
         var val = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
-        var age = val('q-age'), height = val('q-height'), weight = val('q-weight'),
-            goal = val('q-goal'), sex = val('q-sex');
+        var age = val('q-age'), height = val('q-height'), weight = val('q-weight'), goal = val('q-goal');
 
-        if (!age || !height || !weight || !goal || !sex) {
-          quizMsg.textContent = 'من فضلك املأ النوع والسن والطول والوزن والهدف على الأقل';
+        if (!age || !height || !weight || !goal) {
+          quizMsg.textContent = 'من فضلك املأ السن والطول والوزن والهدف على الأقل';
           return;
         }
         quizMsg.textContent = '';
 
         var visitor = null;
         try { visitor = JSON.parse(localStorage.getItem('captainpop_visitor') || 'null'); } catch (err) {}
-        var name = visitor && visitor.name ? visitor.name : 'غير مسجل';
-        var phone = visitor && visitor.phone ? visitor.phone : 'غير مسجل';
+        var name = visitor && visitor.name ? visitor.name : '';
+        var phone = visitor && visitor.phone ? visitor.phone : '';
 
-        var activity = val('q-activity') || 'متوسط الحركة';
+        var activity = val('q-activity') || 'لا يوجد';
         var days = val('q-days') || 'لا يوجد';
         var allergy = val('q-allergy') || 'لا يوجد';
         var health = val('q-health') || 'لا يوجد';
         var notes = val('q-notes') || 'لا يوجد';
 
-        var r = calcPlan({ sex: sex, age: age, height: height, weight: weight,
-                           activity: activity, goal: goal, days: days });
-
-        var text = [
-          '📋 استبيان جديد',
-          '👤 الاسم: ' + name,
-          '📱 الرقم: ' + phone,
+        var lines = [
+          '📋 استبيان نظام غذائي وتدريبي',
+          '👤 الاسم: ' + (name || 'غير مسجل'),
+          '📱 الرقم: ' + (phone || 'غير مسجل'),
           '',
-          '⚧ النوع: ' + (sex === 'm' ? 'ذكر' : 'أنثى'),
           '🔢 السن: ' + age,
           '📏 الطول: ' + height + ' سم',
-          '⚖️ الوزن: ' + weight + ' كجم',
+          '⚖️ الوزن الحالي: ' + weight + ' كجم',
           '🎯 الهدف: ' + goal,
-          '🏃 النشاط: ' + activity,
-          '🏋️ أيام التمرين: ' + days,
-          '⚠️ حساسية: ' + allergy,
-          '❤️ حالات صحية: ' + health,
-          '📝 ملاحظات: ' + notes,
-          '',
-          '━━━━━━━━━━━━',
-          '📊 النتيجة (Harris-Benedict)',
-          '🔥 BMR: ' + r.bmr + ' كالوري',
-          '✖️ معامل النشاط: ' + r.factor,
-          '⚡ احتياجه للحفاظ (TDEE): ' + r.tdee + ' كالوري',
-          '🎯 السعرات المستهدفة (' + r.goalNote + '): ' + r.cal + ' كالوري',
-          '🥩 بروتين: ' + r.protein + ' جم',
-          '🍚 كارب: ' + r.carbs + ' جم',
-          '🥑 دهون: ' + r.fat + ' جم',
-          '⚖️ BMI: ' + r.bmi + ' (' + r.bmiCat + ')',
-          '💧 الماء المطلوب: ' + r.water + ' لتر يومياً'
-        ].join('\n');
+          '🏃 مستوى النشاط: ' + activity,
+          '🏋️ أيام التمرين بالأسبوع: ' + days,
+          '⚠️ حساسية / ممنوعات غذائية: ' + allergy,
+          '❤️ أمراض مزمنة أو حالات صحية: ' + health,
+          '📝 ملاحظات إضافية: ' + notes
+        ];
 
-        // الإرسال للسيرفر (Apps Script -> CallMeBot -> واتساب 01555557031)
-        try {
-          fetch(LEAD_ENDPOINT, {
-            method: 'POST',
-            mode: 'no-cors',
-            keepalive: true,
-            body: JSON.stringify({ action: 'quizResult', text: text })
-          });
-        } catch (err) {}
-
-        // العميل بيشوف رسالة شكر بس، من غير أي أرقام
-        quizForm.hidden = true;
-        if (quizThanks) quizThanks.hidden = false;
-        window.scrollTo(0, 0);
+        var text = lines.join('\n');
+        var url = 'https://wa.me/201555557031?text=' + encodeURIComponent(text);
+        closeQuiz();
+        window.location.href = url;
       });
     }
   })();
