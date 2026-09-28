@@ -85,8 +85,7 @@
 </div>
 
 <script>
-  // 🟢 غير الرقم ده بالرقم الخاص بيك اللي عايز البيانات تجيلك عليه كمدرب
-  // الكود الدولي لمصر 20 وبعده الرقم بدون 0 في الأول (مثال: 201012345678)
+  // 🟢 تم تثبيت رقم الكابتن للتقارير المباشرة
   const COACH_PHONE_NUMBER = "201033338892"; 
 
   let calculatedData = {};
@@ -101,7 +100,7 @@
     const height = parseFloat(document.getElementById('height').value);
     const activityFactor = parseFloat(document.getElementById('activity').value);
 
-    // 1. حساب BMR معادلة Harris-Benedict المعدلة (1984)
+    // 1. حساب BMR معادلة Harris-Benedict المعدلة
     let bmr = 0;
     if (gender === 'male') {
       bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
@@ -112,20 +111,16 @@
     // 2. حساب TDEE
     const tdee = bmr * activityFactor;
 
-    // 3. حساب الماكروز (الرياضي)
-    // البروتين = 2 جرام لكل كجم
+    // 3. حساب الماكروز
     const proteinGrams = weight * 2;
     const proteinCalories = proteinGrams * 4;
 
-    // الدهون = 25% من إجمالي السعرات
     const fatCalories = tdee * 0.25;
     const fatGrams = fatCalories / 9;
 
-    // الكارب = باقي السعرات
     const carbsCalories = tdee - (proteinCalories + fatCalories);
     const carbsGrams = carbsCalories / 4;
 
-    // حفظ الحسابات
     calculatedData = {
       name, gender: gender === 'male' ? 'ذكر' : 'أنثى', age, weight, height,
       activityFactor,
@@ -150,7 +145,6 @@
   function sendToCoachWhatsApp() {
     const d = calculatedData;
     
-    // تنسيق الرسالة لتصلك مفرزة ومُنظمة
     const message = 
 `📋 *تقرير جديد لعميل - Captain POP*
 
