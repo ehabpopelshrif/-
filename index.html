@@ -3,87 +3,215 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تسجيل بيانات العميل - Captain POP</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+  <title>Captain POP - تقييم وتدريب أونلاين</title>
+  <!-- خطوط جرجير وكايرو لتعطي مظهر رياضي احترافي -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-    body { background: #0f0f11; color: #fff; display: flex; justify-content: center; padding: 20px; margin: 0; }
-    .card { background: #18181c; border: 1px solid #2a2a30; border-radius: 16px; width: 100%; max-width: 500px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h2 { text-align: center; color: #ffb703; margin-top: 0; font-weight: 900; }
-    p.subtitle { text-align: center; color: #aaa; font-size: 14px; margin-bottom: 20px; }
-    .form-group { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 6px; font-size: 14px; color: #ccc; }
-    input, select { width: 100%; padding: 12px; background: #222228; border: 1px solid #33333d; border-radius: 8px; color: #fff; font-size: 15px; outline: none; }
-    input:focus, select:focus { border-color: #ffb703; }
-    button { width: 100%; padding: 14px; background: #25D366; color: #fff; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.2s; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    button:hover { background: #1da851; }
+    * {
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0b0b0e;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 15px;
+    }
+
+    .container {
+      background: #141419;
+      border: 1px solid #262630;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 480px;
+      padding: 30px 24px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ffb703, #ff8800);
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .brand-header h1 {
+      color: #ffb703;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .brand-header p {
+      color: #9999a5;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #dddddd;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 13px 15px;
+      background: #1c1c24;
+      border: 1px solid #2f2f3d;
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: #ffb703;
+      background: #22222d;
+      box-shadow: 0 0 10px rgba(255, 183, 3, 0.15);
+    }
+
+    select option {
+      background: #1c1c24;
+      color: #fff;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      background: #25D366;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+    }
+
+    .btn-submit:hover {
+      background: #1eb956;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #666675;
+    }
   </style>
 </head>
 <body>
 
-<div class="card">
-  <h2>بيانات التقييم الرياضي</h2>
-  <p class="subtitle">أدخل بياناتك وسيتم إرسال التقرير للمدرب فوراً</p>
+<div class="container">
+  <div class="brand-header">
+    <h1>CAPTAIN POP</h1>
+    <p>استمارة تقييم الاحتياج الغذائي والبدني</p>
+  </div>
 
-  <form id="calcForm">
+  <form id="clientForm">
     <div class="form-group">
-      <label>اسمك بالكامل:</label>
-      <input type="text" id="clientName" placeholder="أدخل اسمك" required>
+      <label>الاسم بالكامل:</label>
+      <input type="text" id="clientName" placeholder="أدخل اسمك الكريم" required>
     </div>
-    
+
     <div class="form-group">
       <label>الجنس:</label>
-      <select id="gender">
+      <select id="gender" required>
         <option value="male">ذَكَر</option>
         <option value="female">أنثى</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label>السن (سنة):</label>
-      <input type="number" id="age" placeholder="مثال: 25" required>
+      <label>السن (بالسنوات):</label>
+      <input type="number" id="age" placeholder="مثال: 25" min="10" max="90" required>
     </div>
 
     <div class="form-group">
-      <label>الوزن (كجم):</label>
-      <input type="number" id="weight" step="0.1" placeholder="مثال: 80" required>
+      <label>الوزن الحالي (كجم):</label>
+      <input type="number" id="weight" step="0.1" placeholder="مثال: 80" min="30" max="250" required>
     </div>
 
     <div class="form-group">
       <label>الطول (سم):</label>
-      <input type="number" id="height" placeholder="مثال: 175" required>
+      <input type="number" id="height" placeholder="مثال: 175" min="100" max="230" required>
     </div>
 
     <div class="form-group">
-      <label>مستوى النشاط اليومي:</label>
-      <select id="activity">
+      <label>مستوى النشاط والمجهود اليومي:</label>
+      <select id="activity" required>
         <option value="1.2">خامل (بدون تمرين / عمل مكتبي)</option>
-        <option value="1.375">نشاط خفيف (تمرين 1-3 أيام/أسبوع)</option>
-        <option value="1.55">نشاط متوسط (تمرين 3-5 أيام/أسبوع)</option>
-        <option value="1.725">نشاط عالي (تمرين 6-7 أيام/أسبوع)</option>
-        <option value="1.9">نشاط شاق جداً (تمرين مرتين يومياً / عمل بدني شاق)</option>
+        <option value="1.375">نشاط خفيف (تمرين 1 - 3 أيام بالأسبوع)</option>
+        <option value="1.55">نشاط متوسط (تمرين 3 - 5 أيام بالأسبوع)</option>
+        <option value="1.725">نشاط عالي (تمرين 6 - 7 أيام بالأسبوع)</option>
+        <option value="1.9">نشاط شاق جداً (تمرين مرتين يومياً / عمل بدني إجهادي)</option>
       </select>
     </div>
 
-    <button type="submit">إرسال البيانات للكابتن إيهاب 📲</button>
+    <button type="submit" class="btn-submit">
+      <span>إرسال البيانات للكابتن إيهاب</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+      </svg>
+    </button>
   </form>
+
+  <div class="footer-note"> Captain POP Fitness Systems</div>
 </div>
 
 <script>
-  // 🟢 رقم تليفون الكابتن لاستقبال التقارير
+  // رقم التليفون المخصص لاستقبال التقارير الحسابية المباشرة
   const COACH_PHONE_NUMBER = "201033338892"; 
 
-  document.getElementById('calcForm').addEventListener('submit', function(e) {
+  document.getElementById('clientForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const name = document.getElementById('clientName').value;
+    // 1. استخراج البيانات المدخلة بواسطة العميل
+    const name = document.getElementById('clientName').value.trim();
     const gender = document.getElementById('gender').value;
     const age = parseFloat(document.getElementById('age').value);
     const weight = parseFloat(document.getElementById('weight').value);
     const height = parseFloat(document.getElementById('height').value);
     const activityFactor = parseFloat(document.getElementById('activity').value);
 
-    // 1. حساب BMR بمعادلة Harris-Benedict المعدلة (1984)
+    // 2. حساب الـ BMR وفق معادلة Harris-Benedict المعدلة (1984)
     let bmr = 0;
     if (gender === 'male') {
       bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
@@ -91,20 +219,20 @@
       bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
     }
 
-    // 2. حساب TDEE (سعرات المحافظة)
+    // 3. حساب السعرات الحرارية الكلية للمحافظة (TDEE)
     const tdee = bmr * activityFactor;
 
-    // 3. حساب الماكروز المقترحة
-    const proteinGrams = weight * 2;
+    // 4. توزيع الماكروز المقترحة للرياضيين
+    const proteinGrams = weight * 2; // 2 جرام لكل كيلو جرام
     const proteinCalories = proteinGrams * 4;
 
-    const fatCalories = tdee * 0.25;
+    const fatCalories = tdee * 0.25; // 25% من إجمالي السعرات دهون صحية
     const fatGrams = fatCalories / 9;
 
-    const carbsCalories = tdee - (proteinCalories + fatCalories);
+    const carbsCalories = tdee - (proteinCalories + fatCalories); // المتبقي كاربوهيدرات
     const carbsGrams = carbsCalories / 4;
 
-    // 4. تجهيز الرسالة المنسقة للكابتن
+    // 5. بناء التقرير المنسق لإرساله على واتساب الكابتن مباشرة
     const genderText = gender === 'male' ? 'ذكر' : 'أنثى';
     
     const message = 
@@ -125,7 +253,7 @@
 🥑 *الدهون الصحية:* ${Math.round(fatGrams)} جرام
 🍞 *الكاربوهيدرات:* ${Math.round(carbsGrams)} جرام`;
 
-    // 5. فتح الواتساب مباشرة لرقم الكابتن
+    // 6. التوجيه المباشر لتطبيق الواتس على رقم الكابتن
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${COACH_PHONE_NUMBER}?text=${encodedMessage}`;
     
