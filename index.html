@@ -1787,7 +1787,7 @@
       document.getElementById('res-send').addEventListener('click', function () { sendWA(d, p); });
     }
 
-    function sendWA(d, p) {
+   function sendWA(d, p, newTab) {
       var visitor = null;
       try { visitor = JSON.parse(localStorage.getItem('captainpop_visitor') || 'null'); } catch (err) {}
       var name = visitor && visitor.name ? visitor.name : 'غير مسجل';
@@ -1827,8 +1827,13 @@
         '🌾 الألياف: ' + p.fiber + ' جم',
         '💧 المياه: *' + p.water + ' لتر*'
       ];
-      window.location.href = 'https://wa.me/201555557031?text=' + encodeURIComponent(lines.join('\n'));
-    }
+var url = 'https://wa.me/201555557031?text=' + encodeURIComponent(lines.join('\n'));
+if (newTab) {
+  var w = window.open(url, '_blank');
+  if (!w) window.location.href = url; // لو المتصفح منع التاب الجديد
+} else {
+  window.location.href = url;
+}    }
 
     if (quizForm) {
       quizForm.addEventListener('submit', function (e) {
@@ -1856,8 +1861,9 @@
           return;
         }
         quizMsg.textContent = '';
-        renderResult(d, calcPlan(d));
-      });
+var p = calcPlan(d);
+renderResult(d, p);
+sendWA(d, p, true);      });
     }
   })();
 
