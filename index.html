@@ -1861,9 +1861,11 @@ if (newTab) {
           return;
         }
         quizMsg.textContent = '';
-var p = calcPlan(d);
+        var p = calcPlan(d);
 renderResult(d, p);
-sendWA(d, p, true);      });
+sendWA(d, p, true);
+        
+      });
     }
   })();
 
